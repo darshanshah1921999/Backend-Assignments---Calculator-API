@@ -12,139 +12,125 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
 // your code goes here
-app.get("/home",(req,res)=>{
+app.get("/home", (req, res) => {
     res.send("Hello world!");
-});
+})
 
-app.post("/add",(req,res)=>{
+app.post("/add", (req, res) => {
+    const { num1, num2 } = req.body;
+    let message = "the sum of given two numbers";
+    let sum = num1 + num2;
+    const successObj = { status: "success" };
+    const errorObj = { status: "error" };
+    const failureObj = { status: "failure" };
+    let obj = {
+        message: message,
+        sum: sum
+    };
+    if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+        obj.message = "invalid data types";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    else if (num1>1000000 || num2>1000000 || sum > 1000000) {
+        obj.message = "Overflow";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    else if (num1<(-1000000) || num2<(-1000000) || sum <(-1000000)) {
+        obj.message = "Underflow";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    res.status(200).send({ ...successObj, ...obj });
+    res.status(404).send({ ...failureObj, ...obj });
+})
 
-    let n1=req.body.num1;
-    let n2=req.body.num2;
-    let message,sum,status;
-    if(typeof n1 !=="number" || n1===undefined || n2===undefined || typeof n2 !=="number"){
-        message="invalid data types";
-        status="error";
-        res.send({status,message,sum});
-        return;
+app.post("/sub", (req, res) => {
+    const { num1, num2 } = req.body;
+    let message = "the difference of given two numbers";
+    let sub = num1 - num2;
+    const successObj = { status: "success" };
+    const errorObj = { status: "error" };
+    const failureObj = { status: "failure" };
+    let obj = {
+        message: message,
+        difference: sub
+    };
+    if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+        obj.message = "invalid data types";
+        res.status(400).send({ ...errorObj, ...obj });
     }
-    if(Number(n1)>1000000||Number(n2)>1000000){
-        message="Overflow";
-        status="error";
-        res.send({status,message,sum});
-        return;
+    else if (num1>1000000 || num2>1000000 || sub > 1000000) {
+        obj.message = "Overflow";
+        res.status(400).send({ ...errorObj, ...obj });
     }
-    if(Number(n1)<-1000000||Number(n2)<-1000000){
-        message="Underflow";
-        status="error";
-        res.send({status,message,difference});
-        return;
+    else if (num1<(-1000000) || num2<(-1000000) || sub <(-1000000)) {
+        obj.message = "Underflow";
+        res.status(400).send({ ...errorObj, ...obj });
     }
-    message="the sum of given two numbers";
-    sum=Number(n1)+Number(n2);
-    status="success";
-    res.send({status,message,sum});
-    return;
+    res.status(200).send({ ...successObj, ...obj });
+    res.status(404).send({ ...failureObj, ...obj });
+})
 
-});
+app.post("/mul", (req, res) => {
+    const { num1, num2 } = req.body;
+    let message = "The product of given numbers";
+    let mul = num1 * num2;
+    const successObj = { status: "success" };
+    const errorObj = { status: "error" };
+    const failureObj = { status: "failure" };
+    let obj = {
+        message: message,
+        result: mul
+    };
+    if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+        obj.message = "invalid data types";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    else if (num1>1000000 || num2>1000000 || mul > 1000000) {
+        obj.message = "Overflow";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    else if (num1<(-1000000) || num2<(-1000000) || mul <(-1000000)) {
+        obj.message = "Underflow";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    res.status(200).send({ ...successObj, ...obj });
+    res.status(404).send({ ...failureObj, ...obj });
+})
 
-app.post("/sub",(req,res)=>{
+app.post("/div", (req, res) => {
+    const { num1, num2 } = req.body;
+    let message = "The division of given numbers";
+    let obj = {};
+    const successObj = { status: "success" };
+    const errorObj = { status: "error" };
+    const failureObj = { status: "failure" };
+    if(num2===0){
+        obj.message = "Cannot divide by zero";
+        obj.result = 0;
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    let div = num1 / num2;
+    obj = {
+        message: message,
+        result: div
+    };
+    
+    if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+        obj.message = "invalid data types";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    else if (num1>1000000 || num2>1000000 || div > 1000000) {
+        obj.message = "Overflow";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    else if (num1<(-1000000) || num2<(-1000000) || div <(-1000000)) {
+        obj.message = "Underflow";
+        res.status(400).send({ ...errorObj, ...obj });
+    }
+    res.status(200).send({ ...successObj, ...obj });
+    res.status(404).send({ ...failureObj, ...obj });
+})
 
-    let n1=req.body.num1;
-    let n2=req.body.num2;
-    let message,difference,status;
-    if(typeof n1 !=="number" || n1===undefined || n2===undefined || typeof n2 !=="number"){
-        message="invalid data types";
-        status="error";
-        res.send({status,message,sum});
-        return;
-    }
-    if(Number(n1)>1000000||Number(n2)>1000000){
-        message="Overflow";
-        status="error";
-        res.send({status,message,sum});
-        return;
-    }
-    if(Number(n1)<-1000000||Number(n2)<-1000000){
-        message="Underflow";
-        status="error";
-        res.send({status,message,difference});
-        return;
-    }
-    message="the difference of given two numbers";
-    difference=Number(n1)-Number(n2);
-    status="success"
-    res.send({status,message,difference});
-    return;
-
-});
-
-app.post("/multiply",(req,res)=>{
-
-    let n1=req.body.num1;
-    let n2=req.body.num2;
-    let message,result,status;
-    if(typeof n1 !=="number" || n1===undefined || n2===undefined || typeof n2 !=="number"){
-        message="invalid data types";
-        status="error";
-        res.send({status,message,sum});
-        return;
-    }
-    if(Number(n1)>1000000||Number(n2)>1000000){
-        message="Overflow";
-        status="error";
-        res.send({status,message,sum});
-        return;
-    }
-    if(Number(n1)<-1000000||Number(n2)<-1000000){
-        message="Underflow";
-        status="error";
-        res.send({status,message,difference});
-        return;
-    }
-    message="The product of given numbers";
-    result=Number(n1)*Number(n2);
-    status="success"
-    res.send({status,message,result});
-    return;
-
-});
-
-app.post("/division",(req,res)=>{
-
-    let n1=req.body.num1;
-    let n2=req.body.num2;
-    let message,result,status;
-    if(typeof n1 !=="number" || n1===undefined || n2===undefined || typeof n2 !=="number"){
-        message="invalid data types";
-        status="error";
-        res.send({status,message,sum});
-        return;
-    }
-    if(Number(n1)>1000000||Number(n2)>1000000){
-        message="Overflow";
-        status="error";
-        res.send({status,message,sum});
-        return;
-    }
-    if(Number(n1)<-1000000||Number(n2)<-1000000){
-        message="Underflow";
-        status="error";
-        res.send({status,message,difference});
-        return;
-    }
-    if(Number(n2)===0){
-        message="Cannot divide by zero";
-        status="failure";
-        res.send({status,message,result});
-        return;
-    }
-    message="The division of given numbers";
-    result=Number(n1)/Number(n2);
-    status="success"
-    res.send({status,message,result});
-    return;
-
-});
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
 
