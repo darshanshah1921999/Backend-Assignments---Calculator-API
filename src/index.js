@@ -81,7 +81,7 @@ app.post("/sub", (req, res) => {
     res.status(404).send({ ...failureObj, ...obj });
 })
 
-app.post("/mul", (req, res) => {
+app.post("/multiply", (req, res) => {
     const { num1, num2 } = req.body;
     let message = "The product of given numbers";
     let mul = num1 * num2;
@@ -113,7 +113,7 @@ app.post("/mul", (req, res) => {
     res.status(404).send({ ...failureObj, ...obj });
 })
 
-app.post("/div", (req, res) => {
+app.post("/divide", (req, res) => {
     const { num1, num2 } = req.body;
     let message = "The division of given numbers";
     let obj = {};
