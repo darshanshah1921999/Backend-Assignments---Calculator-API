@@ -18,6 +18,8 @@ app.get("/", (req, res) => {
 
 app.post("/add", (req, res) => {
     const { num1, num2 } = req.body;
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
     let message = "the sum of given two numbers";
     let sum = num1 + num2;
     const successObj = { status: "success" };
@@ -50,6 +52,8 @@ app.post("/add", (req, res) => {
 
 app.post("/sub", (req, res) => {
     const { num1, num2 } = req.body;
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
     let message = "the difference of given two numbers";
     let sub = num1 - num2;
     const successObj = { status: "success" };
@@ -83,6 +87,8 @@ app.post("/sub", (req, res) => {
 
 app.post("/multiply", (req, res) => {
     const { num1, num2 } = req.body;
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
     let message = "The product of given numbers";
     let mul = num1 * num2;
     const successObj = { status: "success" };
@@ -115,6 +121,8 @@ app.post("/multiply", (req, res) => {
 
 app.post("/divide", (req, res) => {
     const { num1, num2 } = req.body;
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
     let message = "The division of given numbers";
     let obj = {};
     const successObj = { status: "success" };
