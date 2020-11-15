@@ -26,7 +26,7 @@ app.post("/add", (req, res) => {
     let obj = {
         message: message
     };
-    if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
         obj.message = "Invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
         return;
@@ -59,7 +59,7 @@ app.post("/sub", (req, res) => {
         message: message,
        
     };
-    if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
         obj.message = "Invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
         return;
@@ -94,7 +94,7 @@ app.post("/multiply", (req, res) => {
     let obj1 = {
         result: mul
     }
-    if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
         obj.message = "Invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
         return;
@@ -134,7 +134,7 @@ app.post("/divide", (req, res) => {
         result: div
     }
     
-    if (typeof num1 !== 'number' || typeof num2 !== 'number') {
+    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
         obj.message = "Invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
         return;
