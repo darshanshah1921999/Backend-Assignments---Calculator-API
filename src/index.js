@@ -27,7 +27,7 @@ app.post("/add", (req, res) => {
         message: message
     };
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
-        obj.message = "invalid data types";
+        obj.message = "Invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
         return;
     }
@@ -60,7 +60,7 @@ app.post("/sub", (req, res) => {
        
     };
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
-        obj.message = "invalid data types";
+        obj.message = "Invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
         return;
     }
@@ -95,7 +95,7 @@ app.post("/multiply", (req, res) => {
         result: mul
     }
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
-        obj.message = "invalid data types";
+        obj.message = "Invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
         return;
     }
@@ -135,7 +135,7 @@ app.post("/divide", (req, res) => {
     }
     
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
-        obj.message = "invalid data types";
+        obj.message = "Invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
         return;
     }
