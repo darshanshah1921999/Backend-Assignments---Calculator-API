@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
 // your code goes here
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
     res.send("Hello world!");
 })
 
@@ -24,22 +24,27 @@ app.post("/add", (req, res) => {
     const errorObj = { status: "error" };
     const failureObj = { status: "failure" };
     let obj = {
-        message: message,
-        sum: sum
+        message: message
     };
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
         obj.message = "invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     else if (num1>1000000 || num2>1000000 || sum > 1000000) {
         obj.message = "Overflow";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     else if (num1<(-1000000) || num2<(-1000000) || sum <(-1000000)) {
         obj.message = "Underflow";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
-    res.status(200).send({ ...successObj, ...obj });
+    let sumObj = {
+        sum: sum
+    }
+    res.status(200).send({ ...successObj, ...obj,...sumObj });
     res.status(404).send({ ...failureObj, ...obj });
 })
 
@@ -52,21 +57,27 @@ app.post("/sub", (req, res) => {
     const failureObj = { status: "failure" };
     let obj = {
         message: message,
-        difference: sub
+       
     };
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
         obj.message = "invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     else if (num1>1000000 || num2>1000000 || sub > 1000000) {
         obj.message = "Overflow";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     else if (num1<(-1000000) || num2<(-1000000) || sub <(-1000000)) {
         obj.message = "Underflow";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
-    res.status(200).send({ ...successObj, ...obj });
+    let obj1 = {
+        difference: sub
+    }
+    res.status(200).send({ ...successObj, ...obj,...obj1 });
     res.status(404).send({ ...failureObj, ...obj });
 })
 
@@ -79,8 +90,10 @@ app.post("/mul", (req, res) => {
     const failureObj = { status: "failure" };
     let obj = {
         message: message,
-        result: mul
     };
+    let obj1 = {
+        result: mul
+    }
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
         obj.message = "invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
@@ -93,7 +106,7 @@ app.post("/mul", (req, res) => {
         obj.message = "Underflow";
         res.status(400).send({ ...errorObj, ...obj });
     }
-    res.status(200).send({ ...successObj, ...obj });
+    res.status(200).send({ ...successObj, ...obj, ...obj1 });
     res.status(404).send({ ...failureObj, ...obj });
 })
 
@@ -112,8 +125,11 @@ app.post("/div", (req, res) => {
     let div = num1 / num2;
     obj = {
         message: message,
-        result: div
     };
+
+    let obj1 = {
+        result: div
+    }
     
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
         obj.message = "invalid data types";
@@ -127,7 +143,7 @@ app.post("/div", (req, res) => {
         obj.message = "Underflow";
         res.status(400).send({ ...errorObj, ...obj });
     }
-    res.status(200).send({ ...successObj, ...obj });
+    res.status(200).send({ ...successObj, ...obj, ...obj1 });
     res.status(404).send({ ...failureObj, ...obj });
 })
 
