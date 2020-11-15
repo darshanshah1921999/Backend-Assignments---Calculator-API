@@ -97,14 +97,17 @@ app.post("/mul", (req, res) => {
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
         obj.message = "invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     else if (num1>1000000 || num2>1000000 || mul > 1000000) {
         obj.message = "Overflow";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     else if (num1<(-1000000) || num2<(-1000000) || mul <(-1000000)) {
         obj.message = "Underflow";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     res.status(200).send({ ...successObj, ...obj, ...obj1 });
     res.status(404).send({ ...failureObj, ...obj });
@@ -134,14 +137,17 @@ app.post("/div", (req, res) => {
     if (typeof num1 !== 'number' || typeof num2 !== 'number') {
         obj.message = "invalid data types";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     else if (num1>1000000 || num2>1000000 || div > 1000000) {
         obj.message = "Overflow";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     else if (num1<(-1000000) || num2<(-1000000) || div <(-1000000)) {
         obj.message = "Underflow";
         res.status(400).send({ ...errorObj, ...obj });
+        return;
     }
     res.status(200).send({ ...successObj, ...obj, ...obj1 });
     res.status(404).send({ ...failureObj, ...obj });
