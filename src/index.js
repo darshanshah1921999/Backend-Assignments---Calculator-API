@@ -18,7 +18,11 @@ app.get("/", (req, res) => {
 
 app.post("/add", (req, res) => {
     let { num1, num2 } = req.body;
-    
+    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
+        obj.message = "Invalid data types";
+        res.status(400).send({ ...errorObj, ...obj });
+        return;
+    }
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     let message = "the sum of given two numbers";
@@ -29,12 +33,8 @@ app.post("/add", (req, res) => {
     let obj = {
         message: message
     };
-    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
-        obj.message = "Invalid data types";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    else if (num1>1000000 || num2>1000000 || sum > 1000000) {
+    
+    if (num1>1000000 || num2>1000000 || sum > 1000000) {
         obj.message = "Overflow";
         res.status(400).send({ ...errorObj, ...obj });
         return;
@@ -53,6 +53,11 @@ app.post("/add", (req, res) => {
 
 app.post("/sub", (req, res) => {
     let { num1, num2 } = req.body;
+    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
+        obj.message = "Invalid data types";
+        res.status(400).send({ ...errorObj, ...obj });
+        return;
+    }
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     let message = "the difference of given two numbers";
@@ -64,12 +69,7 @@ app.post("/sub", (req, res) => {
         message: message,
        
     };
-    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
-        obj.message = "Invalid data types";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    else if (num1>1000000 || num2>1000000 || sub > 1000000) {
+    if (num1>1000000 || num2>1000000 || sub > 1000000) {
         obj.message = "Overflow";
         res.status(400).send({ ...errorObj, ...obj });
         return;
@@ -88,6 +88,11 @@ app.post("/sub", (req, res) => {
 
 app.post("/multiply", (req, res) => {
     let { num1, num2 } = req.body;
+    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
+        obj.message = "Invalid data types";
+        res.status(400).send({ ...errorObj, ...obj });
+        return;
+    }
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     let message = "The product of given numbers";
@@ -101,12 +106,7 @@ app.post("/multiply", (req, res) => {
     let obj1 = {
         result: mul
     }
-    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
-        obj.message = "Invalid data types";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    else if (num1>1000000 || num2>1000000 || mul > 1000000) {
+    if (num1>1000000 || num2>1000000 || mul > 1000000) {
         obj.message = "Overflow";
         res.status(400).send({ ...errorObj, ...obj });
         return;
@@ -122,6 +122,11 @@ app.post("/multiply", (req, res) => {
 
 app.post("/divide", (req, res) => {
     let { num1, num2 } = req.body;
+    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
+        obj.message = "Invalid data types";
+        res.status(400).send({ ...errorObj, ...obj });
+        return;
+    }
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     let message = "The division of given numbers";
@@ -142,13 +147,7 @@ app.post("/divide", (req, res) => {
     let obj1 = {
         result: div
     }
-    
-    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
-        obj.message = "Invalid data types";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    else if (num1>1000000 || num2>1000000 || div > 1000000) {
+    if (num1>1000000 || num2>1000000 || div > 1000000) {
         obj.message = "Overflow";
         res.status(400).send({ ...errorObj, ...obj });
         return;
