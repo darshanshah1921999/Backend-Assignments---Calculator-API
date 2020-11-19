@@ -12,156 +12,135 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
 // your code goes here
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
     res.send("Hello world!");
-})
+}) 
 
-app.post("/add", (req, res) => {
-    let { num1, num2 } = req.body;
-    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
-        obj.message = "Invalid data types";
-        res.status(400).send({ ...errorObj, ...obj });
+app.post('/add', (req, res) => {
+    let num1 = req.body.num1;
+    let num2 = req.body.num2;
+    if(isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))){
+        res.send({
+            status: "error",
+            message: "Invalid data types"
+        });
         return;
     }
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
-    let message = "the sum of given two numbers";
-    let sum = num1 + num2;
-    const successObj = { status: "success" };
-    const errorObj = { status: "error" };
-    const failureObj = { status: "failure" };
-    let obj = {
-        message: message
-    };
+    let sum1 = num1 + num2;
+    if(((num1) > 1000000 || (num2) > 1000000) || sum1 > 1000000){
+        res.send({
+            status: "error",
+            message: "Overflow"
+        });
+        return;
+    }else if(num1 < -1000000 || num2 < -1000000 || sum1 < -1000000){
+        res.send({
+            status: "error",
+            message: "Underflow"
+        });
+        return;
+    }
+    res.send({
+        status: "success",
+        message: "the sum of given two numbers",
+        sum: sum1
+    });
+})
+
+app.post('/sub', (req, res) => {
+
+    let num1 = req.body.num1;
+    let num2 = req.body.num2;
+    if(isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))){
+        res.send({
+            status: "error",
+            message: "Invalid data types"
+        });
+        return;
+    }
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
+    let diff1 = num1 - num2;
+    if(((num1) > 1000000 || (num2) > 1000000) || diff1 > 1000000){
+        res.send({
+            status: "error",
+            message: "Overflow"
+        });
+        return;
+    }else if(num1 < -1000000 || num2 < -1000000 || diff1 < -1000000){
+        res.send({
+            status: "error",
+            message: "Underflow"
+        });
+        return;
+    }
     
-    if (num1>1000000 || num2>1000000 || sum > 1000000) {
-        obj.message = "Overflow";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    else if (num1<(-1000000) || num2<(-1000000) || sum <(-1000000)) {
-        obj.message = "Underflow";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    let sumObj = {
-        sum: sum
-    }
-    res.status(200).send({ ...successObj, ...obj,...sumObj });
-    res.status(404).send({ ...failureObj, ...obj });
+    res.send({
+        status: "success",
+        message: "the difference of given two numbers",
+        difference: diff1
+    });
 })
 
-app.post("/sub", (req, res) => {
-    let { num1, num2 } = req.body;
-    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
-        obj.message = "Invalid data types";
-        res.status(400).send({ ...errorObj, ...obj });
+app.post('/multiply', (req, res) => {
+    let num1 = req.body.num1;
+    let num2 = req.body.num2;
+    if(isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))){
+        res.send({
+            status: "error",
+            message: "Invalid data types"
+        });
         return;
     }
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
-    let message = "the difference of given two numbers";
-    let sub = num1 - num2;
-    const successObj = { status: "success" };
-    const errorObj = { status: "error" };
-    const failureObj = { status: "failure" };
-    let obj = {
-        message: message,
-       
-    };
-    if (num1>1000000 || num2>1000000 || sub > 1000000) {
-        obj.message = "Overflow";
-        res.status(400).send({ ...errorObj, ...obj });
+    let mul = req.body.num1 * req.body.num2;
+    if(((num1) > 1000000 || (num2) > 1000000) || mul > 1000000){
+        res.send({
+            status: "error",
+            message: "Overflow"
+        });
+        return;
+    }else if(num1 < -1000000 || num2 < -1000000 || mul < -1000000){
+        res.send({
+            status: "error",
+            message: "Underflow"
+        });
         return;
     }
-    else if (num1<(-1000000) || num2<(-1000000) || sub <(-1000000)) {
-        obj.message = "Underflow";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    let obj1 = {
-        difference: sub
-    }
-    res.status(200).send({ ...successObj, ...obj,...obj1 });
-    res.status(404).send({ ...failureObj, ...obj });
-})
-
-app.post("/multiply", (req, res) => {
-    let { num1, num2 } = req.body;
-    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
-        obj.message = "Invalid data types";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    num1 = parseFloat(num1);
-    num2 = parseFloat(num2);
-    let message = "The product of given numbers";
-    let mul = num1 * num2;
-    const successObj = { status: "success" };
-    const errorObj = { status: "error" };
-    const failureObj = { status: "failure" };
-    let obj = {
-        message: message,
-    };
-    let obj1 = {
+    res.send({
+        status: "success",
+        message: "The product of given numbers",
         result: mul
-    }
-    if (num1>1000000 || num2>1000000 || mul > 1000000) {
-        obj.message = "Overflow";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    else if (num1<(-1000000) || num2<(-1000000) || mul <(-1000000)) {
-        obj.message = "Underflow";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    res.status(200).send({ ...successObj, ...obj, ...obj1 });
-    res.status(404).send({ ...failureObj, ...obj });
+    });
 })
 
-app.post("/divide", (req, res) => {
-    let { num1, num2 } = req.body;
-    if (isNaN(parseFloat(num1)) || isNaN(parseFloat(num2))) {
-        obj.message = "Invalid data types";
-        res.status(400).send({ ...errorObj, ...obj });
+app.post('/divide', (req, res) => {
+    //console.log(req.body.num2);
+    if(isNaN(+req.body.num1) || isNaN(+req.body.num2)){
+        res.send({
+            status: "error",
+            message: "Invalid data types"
+        });
         return;
     }
-    num1 = parseFloat(num1);
-    num2 = parseFloat(num2);
-    let message = "The division of given numbers";
-    let obj = {};
-    const successObj = { status: "success" };
-    const errorObj = { status: "error" };
-    const failureObj = { status: "failure" };
-    if(num2===0){
-        obj.message = "Cannot divide by zero";
-        obj.result = 0;
-        res.status(400).send({ ...errorObj, ...obj });
+    if(parseInt(req.body.num2) === 0){
+        res.send({
+            status: "error",
+            message: "Cannot divide by zero"
+        });
+        return;
     }
-    let div = num1 / num2;
-    obj = {
-        message: message,
-    };
-
-    let obj1 = {
+    let div = req.body.num1 / req.body.num2;
+    res.send({
+        status: "success",
+        message: "The division of given numbers",
         result: div
-    }
-    if (num1>1000000 || num2>1000000 || div > 1000000) {
-        obj.message = "Overflow";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    else if (num1<(-1000000) || num2<(-1000000) || div <(-1000000)) {
-        obj.message = "Underflow";
-        res.status(400).send({ ...errorObj, ...obj });
-        return;
-    }
-    res.status(200).send({ ...successObj, ...obj, ...obj1 });
-    res.status(404).send({ ...failureObj, ...obj });
+    });
 })
-
-
-app.listen(port, () => console.log(`App listening on port ${port}!`))
+//port, () => console.log(`App listening on port ${port}!`)
+app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 module.exports = app;
